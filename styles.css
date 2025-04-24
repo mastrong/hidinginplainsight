@@ -1,0 +1,136 @@
+/** {*/
+/*  !*border: 1px solid red;*!*/
+/*}*/
+
+body {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #0D0D0D;
+  color: #F5F5F5;
+}
+
+.scrollytelling {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.sticky-side {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 30%;
+  padding: 2rem;
+  background-color: #F5F5F5;
+  color: #0D0D0D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  border-right: 2px solid #2E2E2E;
+}
+#sidebar-title {
+  text-align: center;
+}
+
+.scroll-content {
+  width: 70%;
+  padding: 2rem;
+  background-color: #1A1A1A;
+  color: #F5F5F5;
+}
+.step {
+  margin: 0 0 80vh;
+  padding: 1rem;
+  border-left: 4px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.step.is-active {
+  border-color: #00ff88;
+  background-color: #2E2E2E;
+}
+
+input {
+  display: block;
+  margin: 1rem 0;
+  background-color: #1A1A1A;
+  color: #F5F5F5;
+  border: 1px solid #00ff88;
+  font-family: inherit;
+  font-size: 1.2rem;
+  height: 3vh;
+  width: 30vw;
+}
+
+input::placeholder {
+  color: #888;
+}
+
+.cls-1 {
+  fill: none;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+}
+
+.bit-text {
+  fill: #fff;
+  font-family: 'Courier', monospace;
+  font-size: 24px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+#on, #off {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* adds spacing between h3 and svg */
+  margin-bottom: 1rem;
+}
+
+#on h3, #off h3 {
+  margin: 0;
+}
+
+#on svg, #off svg {
+  width: 50px;
+  height: 50px;
+}
+
+#on svg {
+  filter: drop-shadow(0 0 8px yellow);
+}
+
+code {
+  color: cornflowerblue;
+}
+
+#lsb, #msb{
+  stroke: red;
+}
+
+#byte_red rect{
+  stroke: red;
+}
+
+#byte_green rect{
+  stroke: green;
+}
+
+#byte_blue rect {
+  stroke:  blue;
+}
+
+a {
+  color: #00ff88;
+  font-size: 1.2rem;
+}
