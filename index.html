@@ -5,27 +5,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StegoOps: LSB Training</title>
+  <link rel="stylesheet" href="https://unpkg.com/beerslider/dist/BeerSlider.css">
+  <script src="https://unpkg.com/beerslider/dist/BeerSlider.js"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <main class="scrollytelling">
   <div class="sticky-side">
-    <div id="sidebar-title">Bits, Bytes & Binary</div>
+    <div id="sidebar-title">Steganography</div>
+    <div>
+      <p id="sidebar-subtitle">Steganography</p>
+    </div>
   </div>
 
   <div class="scroll-content" id="scrolly">
-    <!-- Module 1: Binary & Bytes -->
-    <section class="step" style="margin-top: 40vh" data-title="Bits, Bytes & Binary">
-      <p>Computers don’t see letters or pictures the way we do. They use a language called binary — made up of just 0's and 1's.</p>
-      <p>Think of it like light switches. Each switch is called a <strong>bit</strong>.</p>
+    <!-- Title Screen-->
+    <section class="step" style="margin-top: 40vh" data-title="Steganography" data-sub="Significant Bits">
+      <code>
+        01001001 01100110 00100000 01111001 01101111 01110101 00100000 01100001 01110010 01100101 00100000 01110010 01100101 01100001 01100100 01101001 01101110 01100111 00100000 01110100 01101000 01101001 01110011 00100000 01101101 01100101 01110011 01110011 01100001 01100111 01100101 00101100 00100000 01001001 00100111 01110110 01100101 00100000 01100010 01100101 01100101 01101110 00100000 01100101 01101110 01110011 01101100 01100001 01110110 01100101 01100100 00100000 01100010 01111001 00100000 01110100 01101000 01101001 01110011 00100000 01100011 01101111 01101101 01110000 01110101 01110100 01100101 01110010 00101110 00100000 01001001 01110100 00100000 01110111 01100001 01101110 01110100 01110011 00100000 01100001 01101100 01101100 00100000 01101111 01100110 00100000 01110100 01101000 01100101 00100000 01100010 01101001 01110100 01110011 00100001
+      </code>
     </section>
-    <section id="switch" class="step" data-title="Bits, Bytes & Binary">
+    <!-- Module 1: Binary & Bytes -->
+    <section class="step" data-title="Bits, Bytes & Binary" data-sub="Bits Are 0's and 1's">
+      <p>Computers don’t see letters or pictures the way we do. They use a language called <code>binary</code> — made up of just <code>0</code>'s and
+        <code>1</code>'s.</p>
+      <p>Think of them like light switches where each switch is called a <code>bit</code>.</p>
+    </section>
+    <section id="switch" class="step" data-title="Bits, Bytes & Binary" data-sub="Bits Are Switches">
       <p>The bit can be either</p>
       <div id="on">
         <h3>On</h3>
         <svg id="bit_on" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg">
           <g id="bit_on" data-name="Layer 1">
-            <rect class="cls-1" x="1" y="1" width="43" height="43" rx="5" ry="5"/>
+            <rect style="stroke: lightyellow" class="cls-1" x="1" y="1" width="43" height="43" rx="5" ry="5"/>
             <text x="22.5" y="22.5" class="bit-text">1</text>
           </g>
         </svg>
@@ -41,8 +53,8 @@
         </svg>
       </div>
     </section>
-    <section class="step" data-title="Bits, Bytes & Binary">
-      <p>When you group 8 bits together, you get a <strong>byte</strong>.</p>
+    <section class="step" data-title="Bits, Bytes & Binary" data-sub="Interpreting Bytes">
+      <p>When you group 8 bits together, you get a <code>byte</code>.</p>
       <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384.5 45">
         <g id="Layer_1-2" data-name="Layer 1">
           <g>
@@ -60,20 +72,21 @@
       <br>
       <p>A byte can store one letter, number, or color. For example:</p>
       <br>
-      <p><code>01000001</code> is uppercase A and <code>01100001</code> is lowercase a.</p>
+      <p><code>01000001</code> is uppercase "A" and <code>01100001</code> is lowercase "a".</p>
       <p><code>00000000</code> is 0, <code>00000001</code> is 1, and <code>11111111</code> is 255.</p>
       <br>
-      <p>Everything digital — photos, videos, websites — is built from millions of these 0's and 1's.</p>
+      <p>Everything digital — photos, videos, websites — is built from millions of bytes.</p>
       <br>
-      <p>What's your name in binary?</p>
+      <p>Let's see your name in binary.</p>
       <input type="text" id="userMessage" placeholder="Enter your name" />
       <p id="binaryOutput"></p>
     </section>
 
     <!-- Module 2: Pixels -->
-    <section class="step" data-title="Pixels with a Secret">
-      <p>Digital images are made of tiny squares called <strong>pixels</strong>. Each pixel stores three colors: Red, Green, and Blue (RGB).</p>
-      <svg id="pixel" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg"  width="100" height="100" viewBox="0 0 84.28 85">
+    <section class="step" data-title="Pixels with a Secret" data-sub="24 Bits for Red, Green, and Blue">
+      <p>Digital images are made of tiny squares called <code>pixels</code>. Each pixel stores three colors: Red, Green, and Blue (RGB).</p>
+      <div id="pixel">
+        <svg id="pixel" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg"  width="100" height="100" viewBox="0 0 84.28 85">
       <defs>
         <style>
           .cls-5 {
@@ -119,7 +132,7 @@
         </g>
       </g>
     </svg>
-
+      </div>
       <p>Each color is saved using one byte — 8 bits. That means every pixel contains:</p>
       <ul>
         <li>8 bits for Red</li>
@@ -171,43 +184,59 @@
       </svg>
       <br>
     </section>
-    <section class="step" data-title="Pixels with a Secret">
-      <p>We can adjust how much red, green, and blue is in a pixel by picking a number between 0 (no color) and 255 (full color).</p>
-      <div class="row">
-        <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-          <rect id="redBox" x="3.5" y="3.5" width="43" height="43" rx="5" ry="5" fill="rgb(255,0,0)" />
-          <text id="redText" x="25" y="25" class="bit-text">255</text>
-        </svg>
-        <div class="slider">
-          <label for="redRange">Red</label>
-          <input type="range" id="redRange" min="0" max="255" value="255">
+    <section class="step" data-title="Pixels with a Secret" data-sub="Let's Adjust">
+      <p>We can adjust how much red, green, and blue is in a pixel by picking a number between 0 and 255.</p>
+      <div id="slider_demo" style="column-gap: 5rem; row-gap: 1rem;">
+        <div id="sliders">
+          <div class="row">
+            <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+              <rect id="redBox" x="3.5" y="3.5" width="43" height="43" rx="5" ry="5" fill="rgb(128,0,0)"/>
+              <text id="redText" x="25" y="25" class="bit-text">128</text>
+            </svg>
+            <div class="slider">
+              <label for="redRange">Red</label>
+              <input type="range" id="redRange" min="0" max="255" value="128">
+            </div>
+          </div>
+          <div class="row">
+            <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+              <rect id="greenBox" x="3.5" y="3.5" width="43" height="43" rx="5" ry="5" fill="rgb(0,128,0)"/>
+              <text id="greenText" x="25" y="25" class="bit-text">128</text>
+            </svg>
+            <div class="slider">
+              <label for="greenRange">Green</label>
+              <input type="range" id="greenRange" min="0" max="255" value="128">
+            </div>
+          </div>
+          <div class="row">
+            <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+              <rect id="blueBox" x="3.5" y="3.5" width="43" height="43" rx="5" ry="5" fill="rgb(0,0,128)"/>
+              <text id="blueText" x="25" y="25" class="bit-text">128</text>
+            </svg>
+            <div class="slider">
+              <label for="blueRange">Blue</label>
+              <input type="range" id="blueRange" min="0" max="255" value="128">
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-          <rect id="greenBox" x="3.5" y="3.5" width="43" height="43" rx="5" ry="5" fill="rgb(0,255,0)" />
-          <text id="greenText" x="25" y="25" class="bit-text">255</text>
-        </svg>
-        <div class="slider">
-          <label for="greenRange">Green</label>
-          <input type="range" id="greenRange" min="0" max="255" value="255">
-        </div>
-      </div>
-      <div class="row">
-        <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-          <rect id="blueBox" x="3.5" y="3.5" width="43" height="43" rx="5" ry="5" fill="rgb(0,0,255)" />
-          <text id="blueText" x="25" y="25" class="bit-text">255</text>
-        </svg>
-        <div class="slider">
-          <label for="blueRange">Blue</label>
-          <input type="range" id="blueRange" min="0" max="255" value="255">
+        <div id="box">
+          <svg width="250" height="250" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <rect id="slider_bit" x="1" y="1" width="43" height="43" rx="5" ry="5" fill="rgb(128,128,128)"/>
+            </g>
+          </svg>
         </div>
       </div>
     </section>
 
     <!-- Module 3: LSB Concept -->
-    <section class="step" data-title="Hiding in Plain Sight">
-      <p><strong>LSB steganography</strong> hides secret data in the <em>least significant bit</em> — the last bit — of each color value.</p>
+    <section class="step" data-title="Hiding in Plain Sight" data-sub="The OG">
+      <p>Here is our original image (100 pixels by 100 pixels):</p>
+      <img src="original_large.png" alt="Original Image"/>
+      <p>Let's see how we can alter the pixels to hide our secret.</p>
+    </section>
+    <section class="step" data-title="Hiding in Plain Sight" data-sub="The LSB">
+      <p>LSB steganography hides secret data in the <code>Least Significant Bit</code> — the last bit — of each color value.</p>
       <svg id="byte_lsb" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384.5 45">
         <g id="Layer_1-2" data-name="Layer 1">
           <g>
@@ -223,12 +252,13 @@
         </g>
       </svg>
       <p>Changing this bit only modifies the red, green, or blue by one number.</p>
-      <p>255 becomes 254 or 0 becomes 1 - which as we have seen previously, isn't very impactful.</p>
-      <p>It’s like changing a penny in a dollar: the difference is so small, you don’t even notice.</p>
-      </section>
-      <section class="step" data-title="Hiding in Plain Sight">
-      <p>Conversely, each byte also has a Most Significant Bit, or MSB.</p>
-      <p>Changing this bit will modify the red, green, or blue by a value of 128. Quite a jump.</p>
+      <img id="lsb_flip" src="original_large.png" alt="Original Image" style="cursor: pointer"/>
+      <p class="clickme"><code>>>> Click the image to flip all the LSB's <<<</code></p>
+      <p>Can you tell the difference?</p>
+      <p>I promise you, it is <em>not</em> broken, and there <em>are</em> two different images.</p>
+    </section>
+    <section class="step" data-title="Hiding in Plain Sight" data-sub="The MSB">
+      <p>Conversely, each byte also has a <code>Most Significant Bit</code>  — the first bit — of each color value.</p>
       <svg id="byte_msb" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384.5 45">
         <g id="Layer_1-2" data-name="Layer 1">
           <g>
@@ -243,18 +273,39 @@
           </g>
         </g>
       </svg>
-      <br>
-      <br>
-      <p>Look at the difference between flipping the bit for the most significant versus the least significant.</p>
-    picture to click on to change lsb and msb
+      <p>Changing this bit will modify the red, green, or blue by a value of 128.</p>
+      <img id="msb_flip" src="original_large.png" alt="Original Image" style="cursor: pointer"/>
+      <p class="clickme"><code>>>> Click the image to flip all the MSB's <<<</code></p>
+      <p>Quite a change, huh?</p>
     </section>
-    <section class="step" data-title="Hiding in Plain Sight">
-      <p>Each pixel can hide <strong>3 secret bits</strong> (the LSB in each color channel), without changing how the image looks to the naked eye.</p>
-      <p>It’s like whispering a secret into a photo — one tiny change at a time.</p>
+    <section class="step" data-title="Hiding in Plain Sight" data-sub="See the Change">
+      <p>Look at the difference side-by-side using the sliders.</p>
+<div class="labels">
+  <strong>Left:</strong> LSB Flip &nbsp; | &nbsp; <strong>Right:</strong> MSB Flip
+</div>
+
+<div class="slider-container">
+  <!-- LSB Slider -->
+  <div class="beer-slider" id="lsb_slider">
+    <img src="original_large.png" alt="Original Image">
+    <div class="beer-reveal">
+      <img src="lsb_flipped_large.png" alt="LSB Flipped Image">
+    </div>
+  </div>
+
+  <!-- MSB Slider -->
+  <div class="beer-slider" id="msb_slider">
+    <img src="original_large.png" alt="Original Image">
+    <div class="beer-reveal">
+      <img src="msb_flipped_large.png" alt="MSB Flipped Image">
+    </div>
+  </div>
+</div>
     </section>
 
     <!-- Module 4: Capacity -->
-    <section class="step" data-title="How Much Can We Hide?">
+    <section class="step" data-title="How Much Can We Hide?" data-sub="Many Pixels, Much Data">
+      <p>Each pixel can hide <code>3 secret bits</code> (the LSB in each color channel), without changing how the image looks to the naked eye.</p>
       <p>Let’s say you have a 50x50 image — that’s 2,500 pixels.</p>
       <div id="grid" style="display: grid; grid-template-columns: repeat(50, auto); gap: 1px;"></div>
       <p>With 3 bits hidden in each pixel, you get:</p>
@@ -266,10 +317,18 @@
     </section>
 
     <!-- Final screen -->
-    <section class="step" data-title="Mission Complete">
-      <h1>Mission Training Complete</h1>
-      <p>You’ve completed the LSB training sequence. Well done.</p>
-      <a href="https://mastrong.github.io/stego/">Here's a real world demo.</a>
+    <section class="step" data-title="All Good Things Must Come to an End" data-sub="Final Thoughts">
+      <h1></h1>
+      <p>A quick gotcha on image formats before you go:</p>
+      <ul>
+        <li>The LSB technique only works on <code>lossless</code> formats that preserve all bits (like .png or .bmp).</li>
+        <li><code>Lossy</code> formats get rid of the least important bits, and that's where LSB stores data (like .jpeg).</li>
+      </ul>
+      <br>
+      <br>
+      <p>What's next?</p>
+      <p class="clickme"><code>>>> <a href="https://mastrong.github.io/stego/">Hide</a> your own message. <<<<</code></p>
+      <p class="clickme"><code>>>> Learn more about <a href="https://vsueiro.com/binary-birthday/">binary</a>. <<<</code></p>
     </section>
   </div>
 </main>

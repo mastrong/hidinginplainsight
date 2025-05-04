@@ -6,12 +6,14 @@ import scrollama from "https://cdn.skypack.dev/scrollama";
 const scroller = scrollama();
 const steps = document.querySelectorAll(".step");
 const sidebarTitle = document.getElementById("sidebar-title");
+const sidebarSubTitle = document.getElementById("sidebar-subtitle");
 let currentTitle = sidebarTitle.textContent;
 
 scroller
   .setup({
     step: ".step",
-    offset: 0.5
+    offset: 0.45,
+      // debug: true
   })
   .onStepEnter(({ element }) => {
     const title = element.getAttribute("data-title")?.trim();
@@ -19,43 +21,17 @@ scroller
       sidebarTitle.textContent = title;
       currentTitle = title;
     }
+    const subtitle = element.getAttribute("data-sub")?.trim();
+    if (subtitle && subtitle !== currentTitle) {
+      sidebarSubTitle.textContent = subtitle;
+      currentTitle = subtitle;
+    }
     steps.forEach(step => step.classList.remove("is-active"));
     element.classList.add("is-active");
   });
 
-// Module 2 LSB canvas toggle
-function drawLSBImage(flip) {
-  const canvas = document.getElementById('lsbCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  for (let x = 0; x < canvas.width; x++) {
-    for (let y = 0; y < canvas.height; y++) {
-      const r = flip ? 145 : 144;
-      ctx.fillStyle = `rgb(${r},144,144)`;
-      ctx.fillRect(x, y, 1, 1);
-    }
-  }
-  canvas.onclick = () => drawLSBImage(!flip);
-}
 
-// Module 3 embed binary
-function drawPixels(bits) {
-  const canvas = document.getElementById('embedCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const pxSize = 40;
-  for (let i = 0; i < bits.length; i++) {
-    const bit = bits[i];
-    const r = 144 + parseInt(bit);
-    ctx.fillStyle = `rgb(${r},144,144)`;
-    ctx.fillRect(i * pxSize, 0, pxSize - 2, 40);
-    ctx.fillStyle = '#F5F5F5';
-    ctx.font = '12px monospace';
-    ctx.fillText(`${r.toString(2).padStart(8, '0')}`, i * pxSize + 2, 30);
-  }
-}
-
-// Module 4 live message
+// Live input binary
 document.addEventListener('DOMContentLoaded', () => {
   // const canvas = document.getElementById('userCanvas');
   const input = document.getElementById('userMessage');
@@ -63,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (input && output) {
     input.addEventListener('input', () => {
-      const msg = input.value.slice(0, 8);
+      const msg = input.value.slice(0, 50);
       const binary = msg.split('').map(c => c.charCodeAt(0).toString(2).padStart(8, '0')).join(' ');
       output.textContent = `${binary}`;
     });
@@ -91,6 +67,8 @@ function updateColors() {
     document.getElementById('redText').textContent = r;
     document.getElementById('greenText').textContent = g;
     document.getElementById('blueText').textContent = b;
+
+    document.getElementById('slider_bit').setAttribute('fill',`rgb(${r},${g},${b})`);
 }
 
 // Pixel Grid
@@ -110,3 +88,49 @@ for (let i = 0; i < 2500; i++) {
   wrapper.innerHTML = pixelSVG;
   grid.appendChild(wrapper.firstElementChild);
 }
+
+
+// Image swaps
+function flipImage(img, flippedSrc, originalSrc) {
+  img.classList.add('flip-animation');
+
+  // Toggle the src
+  img.src = img.src.includes(flippedSrc) ? originalSrc : flippedSrc;
+
+  // Remove the animation class after it's done so it can replay on next click
+  setTimeout(() => {
+    img.classList.remove('flip-animation');
+  }, 400);
+}
+
+const lsb = document.getElementById('lsb_flip');
+const msb = document.getElementById('msb_flip');
+
+lsb.addEventListener('click', () => {
+  flipImage(lsb, 'lsb_flipped_large.png', 'original_large.png');
+});
+
+msb.addEventListener('click', () => {
+  flipImage(msb, 'msb_flipped_large.png', 'original_large.png');
+});
+
+
+// Comparison slider
+const lsbSlider = new BeerSlider(document.getElementById('lsb_slider'));
+const msbSlider = new BeerSlider(document.getElementById('msb_slider'));
+
+// Force start at 10%
+setTimeout(() => {
+    document.querySelector('#lsb_slider .beer-handle').style.left = '10%';
+    document.querySelector('#lsb_slider .beer-reveal').style.width = '10%';
+
+    document.querySelector('#msb_slider .beer-handle').style.left = '10%';
+    document.querySelector('#msb_slider .beer-reveal').style.width = '10%';
+}, 0);
+
+
+// Links open in new windows
+document.querySelectorAll('a[href]').forEach(link => {
+  link.setAttribute('target', '_blank');
+  link.setAttribute('rel', 'noopener noreferrer');
+});
