@@ -280,25 +280,37 @@
     </section>
     <section class="step" data-title="Hiding in Plain Sight" data-sub="See the Change">
       <p>Look at the difference side-by-side using the sliders.</p>
-<div class="labels">
-  <strong>Left:</strong> LSB Flip &nbsp; | &nbsp; <strong>Right:</strong> MSB Flip
-</div>
+<!--<div class="labels">-->
+<!--  <strong>Left:</strong> LSB Flip &nbsp; | &nbsp; <strong>Right:</strong> MSB Flip-->
+<!--</div>-->
 
 <div class="slider-container">
   <!-- LSB Slider -->
-  <div class="beer-slider" id="lsb_slider">
-    <img src="original_large.png" alt="Original Image">
-    <div class="beer-reveal">
+  <div class="comparison-slider">
+    <div class="comparison-before">
+      <img src="original_large.png" alt="Original Image">
+    </div>
+    <div class="comparison-after">
       <img src="lsb_flipped_large.png" alt="LSB Flipped Image">
     </div>
+    <div class="slider-line"></div>
+    <div class="slider-handle"></div>
+    <input type="range" class="comparison-slider-handle" min="0" max="100" value="20">
+    <div class="comparison-label">LSB Flip</div>
   </div>
 
   <!-- MSB Slider -->
-  <div class="beer-slider" id="msb_slider">
-    <img src="original_large.png" alt="Original Image">
-    <div class="beer-reveal">
+  <div class="comparison-slider">
+    <div class="comparison-before">
+      <img src="original_large.png" alt="Original Image">
+    </div>
+    <div class="comparison-after">
       <img src="msb_flipped_large.png" alt="MSB Flipped Image">
     </div>
+    <div class="slider-line"></div>
+    <div class="slider-handle"></div>
+    <input type="range" class="comparison-slider-handle" min="0" max="100" value="20">
+    <div class="comparison-label">MSB Flip</div>
   </div>
 </div>
     </section>
