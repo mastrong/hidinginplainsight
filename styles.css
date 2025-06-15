@@ -242,3 +242,6 @@ a { color: var(--accent); font-size: 1.2rem; }
 input[type="range"] { width: 300px; }
 #grid { display: grid; grid-template-columns: repeat(50, auto); gap: 1px; }
 
+* {
+  hyphens: none;
+}
