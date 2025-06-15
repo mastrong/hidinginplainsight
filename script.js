@@ -1,10 +1,38 @@
 import scrollama from "https://cdn.skypack.dev/scrollama";
+// Dynamically load BeerSlider UMD bundle
 
 const scroller = scrollama();
 const steps = document.querySelectorAll(".step");
 const sidebarTitle = document.getElementById("sidebar-title");
 const sidebarSubTitle = document.getElementById("sidebar-subtitle");
 let currentTitle = sidebarTitle.textContent;
+
+const input = document.getElementById('userMessage');
+const output = document.getElementById('binaryOutput');
+
+// BeerSlider instantiation
+const lsbEl = document.getElementById('lsb_slider');
+const msbEl = document.getElementById('msb_slider');
+const lsbSlider = new BeerSlider(document.getElementById('lsb_slider'));
+const msbSlider = new BeerSlider(document.getElementById('msb_slider'));
+
+// Force beerslider start at 10%
+setTimeout(() => {
+    document.querySelector('#lsb_slider .beer-handle').style.left = '10%';
+    document.querySelector('#lsb_slider .beer-reveal').style.width = '10%';
+
+    document.querySelector('#msb_slider .beer-handle').style.left = '10%';
+    document.querySelector('#msb_slider .beer-reveal').style.width = '10%';
+}, 0);
+
+// Rest of your setup code...
+if (input && output) {
+  input.addEventListener('input', () => {
+    const msg = input.value.slice(0, 50);
+    const binary = msg.split('').map(c => c.charCodeAt(0).toString(2).padStart(8, '0')).join(' ');
+    output.textContent = `${binary}`;
+  });
+}
 
 scroller
   .setup({
@@ -26,22 +54,6 @@ scroller
     steps.forEach(step => step.classList.remove("is-active"));
     element.classList.add("is-active");
   });
-
-
-// Live input binary
-document.addEventListener('DOMContentLoaded', () => {
-  // const canvas = document.getElementById('userCanvas');
-  const input = document.getElementById('userMessage');
-  const output = document.getElementById('binaryOutput');
-
-  if (input && output) {
-    input.addEventListener('input', () => {
-      const msg = input.value.slice(0, 50);
-      const binary = msg.split('').map(c => c.charCodeAt(0).toString(2).padStart(8, '0')).join(' ');
-      output.textContent = `${binary}`;
-    });
-  }
-});
 
 // RGB Sliders
 const redRange = document.getElementById('redRange');
@@ -109,97 +121,6 @@ lsb.addEventListener('click', () => {
 
 msb.addEventListener('click', () => {
   flipImage(msb, 'msb_flipped_large.png', 'original_large.png');
-});
-
-
-// Initialize comparison sliders when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-  const sliders = document.querySelectorAll('.comparison-slider');
-  
-  sliders.forEach(slider => {
-    const before = slider.querySelector('.comparison-before');
-    const handle = slider.querySelector('.comparison-slider-handle');
-    const sliderLine = slider.querySelector('.slider-line');
-    const sliderHandle = slider.querySelector('.slider-handle');
-    let isDragging = false;
-    
-    // Update slider position
-    const updateSlider = (value) => {
-      const percent = Math.min(100, Math.max(0, value));
-      before.style.width = `${percent}%`;
-      
-      // Update the position of the slider line and handle
-      if (sliderLine) {
-        sliderLine.style.left = `${percent}%`;
-      }
-      if (sliderHandle) {
-        sliderHandle.style.left = `${percent}%`;
-      }
-      
-      // Update the slider value
-      if (handle) {
-        handle.value = percent;
-      }
-    };
-    
-    // Handle input events from range input
-    if (handle) {
-      handle.addEventListener('input', (e) => {
-        updateSlider(e.target.value);
-      });
-    }
-    
-    // Handle mouse/touch events for drag
-    const startDragging = (e) => {
-      isDragging = true;
-      document.addEventListener('mousemove', onDrag);
-      document.addEventListener('mouseup', stopDragging);
-      document.addEventListener('touchmove', onDrag, { passive: false });
-      document.addEventListener('touchend', stopDragging);
-      e.preventDefault();
-      updateSlider(getPosition(e));
-    };
-    
-    const getPosition = (e) => {
-      const rect = slider.getBoundingClientRect();
-      let x = 0;
-      
-      if (e.type.includes('touch')) {
-        x = e.touches[0].clientX - rect.left;
-      } else {
-        x = e.clientX - rect.left;
-      }
-      
-      return (x / rect.width) * 100;
-    };
-    
-    const onDrag = (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      updateSlider(getPosition(e));
-    };
-    
-    const stopDragging = () => {
-      isDragging = false;
-      document.removeEventListener('mousemove', onDrag);
-      document.removeEventListener('mouseup', stopDragging);
-      document.removeEventListener('touchmove', onDrag);
-      document.removeEventListener('touchend', stopDragging);
-    };
-    
-    // Add event listeners
-    slider.addEventListener('mousedown', startDragging);
-    slider.addEventListener('touchstart', startDragging, { passive: true });
-    
-    // Prevent image drag
-    const images = slider.querySelectorAll('img');
-    images.forEach(img => {
-      img.addEventListener('dragstart', (e) => e.preventDefault());
-    });
-    
-    // Set initial position
-    updateSlider(20);
-  });
 });
 
 

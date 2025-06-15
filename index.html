@@ -5,9 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StegoOps: LSB Training</title>
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://unpkg.com/beerslider/dist/BeerSlider.css">
   <script src="https://unpkg.com/beerslider/dist/BeerSlider.js"></script>
-  <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
 <main class="scrollytelling">
@@ -281,36 +282,21 @@
     <section class="step" data-title="Hiding in Plain Sight" data-sub="See the Change">
       <p>Look at the difference side-by-side using the sliders.</p>
 <!--<div class="labels">-->
-<!--  <strong>Left:</strong> LSB Flip &nbsp; | &nbsp; <strong>Right:</strong> MSB Flip-->
+<!--  <strong>Top:</strong> LSB Flip &nbsp; | &nbsp; <strong>Bottom:</strong> MSB Flip-->
 <!--</div>-->
 
 <div class="slider-container">
-  <!-- LSB Slider -->
-  <div class="comparison-slider">
-    <div class="comparison-before">
-      <img src="original_large.png" alt="Original Image">
-    </div>
-    <div class="comparison-after">
+  <div class="beer-slider" id="lsb_slider" data-beer-start="10">
+    <img src="original_large.png" alt="Original Image" data-beer-label="Original">
+    <div class="beer-reveal">
       <img src="lsb_flipped_large.png" alt="LSB Flipped Image">
     </div>
-    <div class="slider-line"></div>
-    <div class="slider-handle"></div>
-    <input type="range" class="comparison-slider-handle" min="0" max="100" value="20">
-    <div class="comparison-label">LSB Flip</div>
   </div>
-
-  <!-- MSB Slider -->
-  <div class="comparison-slider">
-    <div class="comparison-before">
-      <img src="original_large.png" alt="Original Image">
-    </div>
-    <div class="comparison-after">
+  <div class="beer-slider" id="msb_slider" data-beer-start="10">
+    <img src="original_large.png" alt="Original Image" data-beer-label="Original">
+    <div class="beer-reveal">
       <img src="msb_flipped_large.png" alt="MSB Flipped Image">
     </div>
-    <div class="slider-line"></div>
-    <div class="slider-handle"></div>
-    <input type="range" class="comparison-slider-handle" min="0" max="100" value="20">
-    <div class="comparison-label">MSB Flip</div>
   </div>
 </div>
     </section>
@@ -344,7 +330,6 @@
     </section>
   </div>
 </main>
-<!--  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>-->
   <script type="module" src="script.js"></script>
 </body>
 </html>
