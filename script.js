@@ -3,12 +3,11 @@ import scrollama from "https://cdn.skypack.dev/scrollama";
 
 const scroller = scrollama();
 const steps = document.querySelectorAll(".step");
-const sidebarTitle = document.getElementById("sidebar-title");
-const sidebarSubTitle = document.getElementById("sidebar-subtitle");
-let currentTitle = sidebarTitle.textContent;
 
 const input = document.getElementById('userMessage');
 const output = document.getElementById('binaryOutput');
+
+let currentTitle = '';
 
 // BeerSlider instantiation
 const lsbEl = document.getElementById('lsb_slider');
@@ -33,6 +32,28 @@ if (input && output) {
     output.textContent = `${binary}`;
   });
 }
+function updateSidebar(title, subtitle) {
+  const titleEl = document.getElementById('sidebar-title');
+  const subtitleEl = document.getElementById('sidebar-subtitle');
+
+  if (!titleEl || !subtitleEl) return;
+
+  titleEl.textContent = title;
+  subtitleEl.textContent = subtitle;
+
+  // Responsive style switching
+  if (window.innerWidth < 768) {
+    titleEl.classList.remove('fs-1');
+    titleEl.classList.add('fs-5');
+    subtitleEl.classList.remove('fs-4');
+    subtitleEl.classList.add('fs-6');
+  } else {
+    titleEl.classList.remove('fs-5');
+    titleEl.classList.add('fs-1');
+    subtitleEl.classList.remove('fs-6');
+    subtitleEl.classList.add('fs-4');
+  }
+}
 
 scroller
   .setup({
@@ -41,19 +62,36 @@ scroller
       // debug: true
   })
   .onStepEnter(({ element }) => {
+      console.log("STEP ENTER:", element.dataset.title);
     const title = element.getAttribute("data-title")?.trim();
-    if (title && title !== currentTitle) {
-      sidebarTitle.textContent = title;
-      currentTitle = title;
-    }
     const subtitle = element.getAttribute("data-sub")?.trim();
-    if (subtitle && subtitle !== currentTitle) {
-      sidebarSubTitle.textContent = subtitle;
-      currentTitle = subtitle;
+
+    if (title || subtitle) {
+      updateSidebar(title || '', subtitle || '');
+      currentTitle = subtitle || title;
     }
+
     steps.forEach(step => step.classList.remove("is-active"));
     element.classList.add("is-active");
   });
+
+// CONTENT LOADED
+window.addEventListener('DOMContentLoaded', function() {
+  var titles = document.getElementById('titles');
+  var scrolly = document.getElementById('scrolly');
+  scrolly.style.marginTop = titles.offsetHeight *2 + 'px';
+});
+
+// RESIZING
+window.addEventListener('resize', () => {
+    // update titles
+  updateSidebar(currentTitle, currentTitle);  // both title and subtitle for consistency
+
+    // update offset
+  var titles = document.getElementById('titles');
+  var scrolly = document.getElementById('scrolly');
+  scrolly.style.marginTop = titles.offsetHeight + 'px';
+});
 
 // RGB Sliders
 const redRange = document.getElementById('redRange');
@@ -123,9 +161,67 @@ msb.addEventListener('click', () => {
   flipImage(msb, 'msb_flipped_large.png', 'original_large.png');
 });
 
-
 // Links open in new windows
 document.querySelectorAll('a[href]').forEach(link => {
   link.setAttribute('target', '_blank');
   link.setAttribute('rel', 'noopener noreferrer');
 });
+
+
+function getRandomBinaryString(length) {
+    let s = '';
+    for (let i = 0; i < length; i++) {
+        s += Math.random() > 0.5 ? '1' : '0';
+        // Add a space every 8 digits for effect
+        if ((i + 1) % 8 === 0) s += ' ';
+    }
+    return s;
+}
+
+function createBinaryLine(width) {
+    // Estimate the number of digits needed based on width
+    const digits = Math.ceil(width / 11); // Roughly 1ch per digit+space
+    const binary = getRandomBinaryString(digits);
+    const line = document.createElement('div');
+    line.textContent = binary;
+    line.style.position = 'absolute';
+    line.style.whiteSpace = 'nowrap';
+    line.style.fontFamily = 'monospace';
+    line.style.fontSize = '20px';
+    // line.style.opacity = (Math.random() * 0.3 + 0.08).toFixed(2); // 0.08–0.38
+    line.style.opacity = (Math.random() * 0.11 + 0.04).toFixed(2); // 0.04–0.15
+    line.style.color = 'white';
+    line.style.left = '100%'; // Start just outside right edge
+    // Random vertical position within header
+    // const top = Math.random() * 500;
+    const top = Math.random() * window.innerHeight;
+    line.style.top = `${top}px`;
+    // Animation duration
+    const duration = (Math.random() * 10 + 10).toFixed(1); // 10–20s
+    line.style.transition = `transform ${duration}s linear`;
+    // Animate after insertion
+    setTimeout(() => {
+        line.style.transform = `translateX(-${width + 400}px)`; // Fly fully to left
+    }, 50);
+
+    // Remove after animation completes
+    setTimeout(() => {
+        line.remove();
+    }, duration * 1000 + 100);
+
+    return line;
+}
+
+function spawnBinaryLines() {
+    const container = document.getElementById('binary-bg');
+    const width = container.offsetWidth || window.innerWidth;
+    // Spawn new line every 700ms
+    setInterval(() => {
+        const line = createBinaryLine(width);
+        container.appendChild(line);
+    }, 1200);
+}
+
+// Start after DOM loads
+window.addEventListener('DOMContentLoaded', spawnBinaryLines);
+
